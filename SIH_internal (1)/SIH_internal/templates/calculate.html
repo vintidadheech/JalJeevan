@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-image: url("https://i.pinimg.com/originals/a8/a3/fb/a8a3fb4a3e37f730629b46d4b76684c0.jpg");
+        min-height: 100vh;
+        background-size: cover;
+        width: 100%;
+      }
+      .form-container {
+        margin-top: 50px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        padding: 50px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        /* background-color: #f9f9f9; */
+        background-color: transparent;
+        box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.2);
+
+      }
+
+      .result-card {
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+
+      .result-card:hover {
+        transform: translateY(-5px); /* Small lift effect on hover */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Increase shadow depth on hover */
+      }
+
+      .card-header {
+        font-weight: bold;
+      }
+
+      .display-4 {
+        color: #0077a3; /* Water color for the main result value */
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bg-primary text-white text-center p-4">
+      <h1>Water Footprint Calculator</h1>
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#mission">Our Mission</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#plan">Our Plan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#vision">Our Vision</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#about">About Us</a>
+        </li>
+      </ul>
+    </header>
+    <div class="container form-container p-5 back-container">
+      <h2 class="text-center mb-4">Water Footprint</h2>
+      <form action="{{ url_for('calculates')}}" method="POST">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Number_of_people">Number of People</label>
+            <input
+              type="number"
+              class="form-control"
+              id="Number_of_people"
+              name="Number_of_people"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Average_Age">Average Age</label>
+            <input
+              type="number"
+              class="form-control"
+              id="Average_Age"
+              name="Average_Age"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Total_Income">Total Income</label>
+          <input
+            type="number"
+            class="form-control"
+            id="Total_Income"
+            name="Total_Income"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="Occupation">Occupation</label>
+          <select class="form-control" id="Occupation" name="Occupation">
+            <option value="Salaried">Salaried</option>
+            <option value="Business">Business</option>
+            <option value="Student">Student</option>
+            <option value="Retired">Retired</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Lifestyle">Lifestyle</label>
+          <select class="form-control" id="Lifestyle" name="Lifestyle">
+            <option value="Minimalist">Minimalist</option>
+            <option Value="Average">Average</option>
+            <option value="Luxury">Luxury</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="House_Size">House Size (in sq.ft.)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="House_Size"
+            name="House_Size"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="Garden">Garden ?</label>
+          <select class="form-control" id="Garden" name="Garden">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="form-group mt-3">
+          <label for="Number_of_bathrooms">Number of Bathrooms</label>
+          <input
+            type="number"
+            class="form-control"
+            id="Number_of_bathrooms"
+            name="Number_of_bathrooms"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="Dishwasher_usage">Dishwasher Usage</label>
+          <select
+            class="form-control"
+            id="Dishwasher_usage"
+            name="Dishwasher_usage"
+          >
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Never">Never</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Washing_machine_usage">Washing Machine Usage</label>
+          <select
+            class="form-control"
+            id="Washing_machine_usage"
+            name="Washing_machine_usage"
+          >
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Rarely">Rarely</option>
+          <option value="Never">Never</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Swimming">Swimming Pool ?</label>
+          <select class="form-control" id="Swimming" name="Swimming">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="form-group mt-3">
+          <label for="Water_storage">Water Storage Method</label>
+          <select class="form-control" id="Water_storage" name="Water_storage">
+            <option>Tank</option>
+            <option>Direct Supply</option>
+            <option>Well</option>
+          </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+      <div class="container mt-5">
+        <div class="result-card">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              Water Footprint Result
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Your Estimated Water Footprint:</h5>
+              <p class="card-text display-4" id="waterFootprintValue">
+                {{prediction_text}} liters/day
+              </p>
+              <p class="card-text">
+                Based on the details provided, including your occupation as a
+                <span id="occupationValue">Salaried</span> individual and a
+                lifestyle of <span id="lifestyleValue">Average</span>, along
+                with other factors, this is your estimated daily water
+                consumption.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              <small
+                >Note: Actual consumption may vary based on specific activities
+                and usage patterns.</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
